@@ -61,346 +61,74 @@ namespace Kenedia.Modules.ItemDestructor.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Axe.
+        ///   Looks up a localized string similar to activated.
         /// </summary>
-        internal static string Axe {
+        internal static string Activated {
             get {
-                return ResourceManager.GetString("Axe", resourceCulture);
+                return ResourceManager.GetString("Activated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Build.
+        ///   Looks up a localized string similar to Shift + Click on an Item!.
         /// </summary>
-        internal static string Build {
+        internal static string ClickItem {
             get {
-                return ResourceManager.GetString("Build", resourceCulture);
+                return ResourceManager.GetString("ClickItem", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Concentration.
+        ///   Looks up a localized string similar to deactivated.
         /// </summary>
-        internal static string Concentration {
+        internal static string Deactivated {
             get {
-                return ResourceManager.GetString("Concentration", resourceCulture);
+                return ResourceManager.GetString("Deactivated", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Condition Damage.
+        ///   Looks up a localized string similar to {0} {1} !.
         /// </summary>
-        internal static string ConditionDamage {
+        internal static string RunStateChange {
             get {
-                return ResourceManager.GetString("ConditionDamage", resourceCulture);
+                return ResourceManager.GetString("RunStateChange", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy.
+        ///   Looks up a localized string similar to Show Corner Icon.
         /// </summary>
-        internal static string Copy {
+        internal static string ShowCorner_Name {
             get {
-                return ResourceManager.GetString("Copy", resourceCulture);
+                return ResourceManager.GetString("ShowCorner_Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to Show / Hide the Corner Icon of {0}..
         /// </summary>
-        internal static string Create {
+        internal static string ShowCorner_Tooltip {
             get {
-                return ResourceManager.GetString("Create", resourceCulture);
+                return ResourceManager.GetString("ShowCorner_Tooltip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dagger.
+        ///   Looks up a localized string similar to Throw the marked item out!.
         /// </summary>
-        internal static string Dagger {
+        internal static string ThrowItem {
             get {
-                return ResourceManager.GetString("Dagger", resourceCulture);
+                return ResourceManager.GetString("ThrowItem", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Toggle {0}.
         /// </summary>
-        internal static string Delete {
+        internal static string Toggle {
             get {
-                return ResourceManager.GetString("Delete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Expertise.
-        /// </summary>
-        internal static string Expertise {
-            get {
-                return ResourceManager.GetString("Expertise", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ferocity.
-        /// </summary>
-        internal static string Ferocity {
-            get {
-                return ResourceManager.GetString("Ferocity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Focus.
-        /// </summary>
-        internal static string Focus {
-            get {
-                return ResourceManager.GetString("Focus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gear.
-        /// </summary>
-        internal static string Gear {
-            get {
-                return ResourceManager.GetString("Gear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Left Click to select Stat/Upgrade
-        ///Alt + Right Click to select Weapon
-        ///Right Click to copy Stat/Upgrade Name.
-        /// </summary>
-        internal static string GearTab_Tips {
-            get {
-                return ResourceManager.GetString("GearTab_Tips", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Greatsword.
-        /// </summary>
-        internal static string Greatsword {
-            get {
-                return ResourceManager.GetString("Greatsword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hammer.
-        /// </summary>
-        internal static string Hammer {
-            get {
-                return ResourceManager.GetString("Hammer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Healing Power.
-        /// </summary>
-        internal static string HealingPower {
-            get {
-                return ResourceManager.GetString("HealingPower", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Longbow.
-        /// </summary>
-        internal static string Longbow {
-            get {
-                return ResourceManager.GetString("Longbow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mace.
-        /// </summary>
-        internal static string Mace {
-            get {
-                return ResourceManager.GetString("Mace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pistol.
-        /// </summary>
-        internal static string Pistol {
-            get {
-                return ResourceManager.GetString("Pistol", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Power.
-        /// </summary>
-        internal static string Power {
-            get {
-                return ResourceManager.GetString("Power", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Precision.
-        /// </summary>
-        internal static string Precision {
-            get {
-                return ResourceManager.GetString("Precision", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rifle.
-        /// </summary>
-        internal static string Rifle {
-            get {
-                return ResourceManager.GetString("Rifle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scepter.
-        /// </summary>
-        internal static string Scepter {
-            get {
-                return ResourceManager.GetString("Scepter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        internal static string Search {
-            get {
-                return ResourceManager.GetString("Search", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shield.
-        /// </summary>
-        internal static string Shield {
-            get {
-                return ResourceManager.GetString("Shield", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shortbow.
-        /// </summary>
-        internal static string Shortbow {
-            get {
-                return ResourceManager.GetString("Shortbow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Spear.
-        /// </summary>
-        internal static string Spear {
-            get {
-                return ResourceManager.GetString("Spear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Speargun.
-        /// </summary>
-        internal static string Speargun {
-            get {
-                return ResourceManager.GetString("Speargun", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Staff.
-        /// </summary>
-        internal static string Staff {
-            get {
-                return ResourceManager.GetString("Staff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sword.
-        /// </summary>
-        internal static string Sword {
-            get {
-                return ResourceManager.GetString("Sword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Template.
-        /// </summary>
-        internal static string Template {
-            get {
-                return ResourceManager.GetString("Template", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Template Code.
-        /// </summary>
-        internal static string TemplateCode {
-            get {
-                return ResourceManager.GetString("TemplateCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Torch.
-        /// </summary>
-        internal static string Torch {
-            get {
-                return ResourceManager.GetString("Torch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toughness.
-        /// </summary>
-        internal static string Toughness {
-            get {
-                return ResourceManager.GetString("Toughness", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Trident.
-        /// </summary>
-        internal static string Trident {
-            get {
-                return ResourceManager.GetString("Trident", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unkown.
-        /// </summary>
-        internal static string Unkown {
-            get {
-                return ResourceManager.GetString("Unkown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Vitality.
-        /// </summary>
-        internal static string Vitality {
-            get {
-                return ResourceManager.GetString("Vitality", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Warhorn.
-        /// </summary>
-        internal static string Warhorn {
-            get {
-                return ResourceManager.GetString("Warhorn", resourceCulture);
+                return ResourceManager.GetString("Toggle", resourceCulture);
             }
         }
     }

@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CursorIcon.cs" />
-    <Compile Include="Classes\Enum.cs" />
     <Compile Include="Classes\ExtensionMethods.cs" />
     <Compile Include="Classes\TextureManager.cs" />
     <Compile Include="Classes\Ticks.cs" />
@@ -267,14 +266,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ref\_instructions.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ref\155985.png" />
-    <Content Include="ref\603447.png" />
-    <Content Include="ref\test\603447.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Strings\common.de.resx" />
     <EmbeddedResource Include="Strings\common.es.resx" />
     <EmbeddedResource Include="Strings\common.fr.resx" />
@@ -282,6 +273,18 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>common.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ref\data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ref\textures\backgrounds\2.png" />
+    <Content Include="ref\textures\controls\25.png" />
+    <Content Include="ref\textures\controls\26.png" />
+    <Content Include="ref\textures\icons\0.png" />
+    <Content Include="ref\textures\icons\1.png" />
+    <Content Include="ref\textures\icons\2.png" />
+    <Content Include="ref\textures\icons\3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,6 +1,6 @@
 {
   "name": "Item Destructor",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "namespace": "Kenedia.Modules.ItemDestructor",
   "package": "ItemDestructor.dll",
   "manifest_version": 1,

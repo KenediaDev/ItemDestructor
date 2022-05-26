@@ -5,22 +5,14 @@ using Blish_HUD.Controls.Extern;
 using Blish_HUD.Modules;
 using Blish_HUD.Modules.Managers;
 using Blish_HUD.Settings;
-using Gw2Sharp.WebApi.V2.Models;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Point = Microsoft.Xna.Framework.Point;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace Kenedia.Modules.ItemDestructor
 {
@@ -45,16 +37,8 @@ namespace Kenedia.Modules.ItemDestructor
             ModuleInstance = this;
         }
 
-        [DllImport("user32")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-        public const uint WM_COMMAND = 0x0111;
-        public const uint WM_PASTE = 0x0302;
-        [DllImport("user32")]
-        public static extern bool PostMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
-
-        public SettingEntry<Blish_HUD.Input.KeyBinding> CancelKey;
-        public SettingEntry<Blish_HUD.Input.KeyBinding> ToggleModule;
-        public SettingEntry<Blish_HUD.Input.KeyBinding> ReloadKey;
+        public SettingEntry<Blish_HUD.Input.KeyBinding> Cancel_Key;
+        public SettingEntry<Blish_HUD.Input.KeyBinding> ToggleModule_Key;
         public SettingEntry<bool> ShowCornerIcon;
 
         public string CultureString;
@@ -65,7 +49,7 @@ namespace Kenedia.Modules.ItemDestructor
         private CursorSpinner CursorIcon;
         private DeleteIndicator DeleteIndicator;
         private CornerIcon cornerIcon;
-        private InputService Input;
+        private LoadingSpinner LoadingSpinner;
 
         public static VirtualKeyShort[] ModKeyMapping;
 
@@ -84,9 +68,8 @@ namespace Kenedia.Modules.ItemDestructor
         private ButtonState MouseState;
         private Point MousePos = Point.Zero;
         private Point ItemPos = Point.Zero;
-        private ButtonState HotKeyState;
 
-        public string Instruction = "Shift + Click on an Item!";
+        public string Instruction = Strings.common.ClickItem;
         private bool ModuleActive;
         private bool DeleteRunning;
         private bool DeletePrepared;
@@ -105,46 +88,30 @@ namespace Kenedia.Modules.ItemDestructor
 
         protected override void DefineSettings(SettingCollection settings)
         {
-
-            ToggleModule = settings.DefineSetting(nameof(ToggleModule),
+            ToggleModule_Key = settings.DefineSetting(nameof(ToggleModule_Key),
                                                       new Blish_HUD.Input.KeyBinding(ModifierKeys.Ctrl, Keys.Delete),
-                                                      () => "Toggle Module",
-                                                      () => "Enables/Disables the modules destruction mode.");
+                                                      () => string.Format(Strings.common.Toggle, Name));
 
             ShowCornerIcon = settings.DefineSetting(nameof(ShowCornerIcon),
                                                       true,
-                                                      () => "Show Corner Icon",
-                                                      () => "Show / Hide the Corner Icon of this module.");
+                                                      () => Strings.common.ShowCorner_Name,
+                                                      () => string.Format(Strings.common.ShowCorner_Tooltip, Name));
 
             var internal_settings = settings.AddSubCollection("Internal Settings", false);
-
-            ReloadKey = internal_settings.DefineSetting(nameof(ReloadKey),
-                                                      new Blish_HUD.Input.KeyBinding(Keys.RightControl),
-                                                      () => "Reload Button",
-                                                      () => "");
-
-            CancelKey = internal_settings.DefineSetting(nameof(CancelKey),
-                                                      new Blish_HUD.Input.KeyBinding(Keys.Escape),
-                                                      () => "Cancel Button",
-                                                      () => "");
+            Cancel_Key = internal_settings.DefineSetting(nameof(Cancel_Key), new Blish_HUD.Input.KeyBinding(Keys.Escape));
         }
 
         protected override void Initialize()
         {
-            CultureString = ItemDestructor.getCultureString();
             Logger.Info("Starting Builds Manager v." + Version.BaseVersion());
 
-            ReloadKey.Value.Enabled = true;
-            ReloadKey.Value.Activated += ReloadKey_Activated;
+            Cancel_Key.Value.Enabled = true;
+            Cancel_Key.Value.Activated += CancelKey_Activated;
 
-            CancelKey.Value.Enabled = true;
-            CancelKey.Value.Activated += CancelKey_Activated;
-
-            Input = new InputService();
             DataLoaded = false;
 
-            ToggleModule.Value.Enabled = true;
-            ToggleModule.Value.Activated += ToggleModule_Activated;
+            ToggleModule_Key.Value.Enabled = true;
+            ToggleModule_Key.Value.Activated += ToggleModule;
 
             ModKeyMapping = new VirtualKeyShort[5];
             ModKeyMapping[(int)ModifierKeys.Ctrl] = VirtualKeyShort.CONTROL;
@@ -152,31 +119,26 @@ namespace Kenedia.Modules.ItemDestructor
             ModKeyMapping[(int)ModifierKeys.Shift] = VirtualKeyShort.LSHIFT;
 
             ShowCornerIcon.SettingChanged += ShowCornerIcon_SettingChanged;
+            OverlayService.Overlay.UserLocale.SettingChanged += UserLocale_SettingChanged;
         }
 
-        private void ToggleModule_Activated(object sender, EventArgs e)
+        private void ToggleModule(object sender, EventArgs e)
         {
-            ScreenNotification.ShowNotification(string.Format("Item Destruction Mode: {0}", ModuleActive ? "Disabled" : "Enabled"), ScreenNotification.NotificationType.Warning);
+            ScreenNotification.ShowNotification(string.Format(Strings.common.RunStateChange, Name, ModuleActive ? Strings.common.Deactivated : Strings.common.Activated), ScreenNotification.NotificationType.Warning);
             ModuleActive = !ModuleActive;
             CursorIcon.Visible = ModuleActive;
+            LoadingSpinner.Visible = cornerIcon?.Visible == true && ModuleActive;
         }
 
         private void ShowCornerIcon_SettingChanged(object sender, ValueChangedEventArgs<bool> e)
         {
             if (cornerIcon != null) cornerIcon.Visible = e.NewValue;
+            if (LoadingSpinner != null) LoadingSpinner.Visible = cornerIcon?.Visible == true && ModuleActive;
         }
 
         private void CancelKey_Activated(object sender, EventArgs e)
         {
             DeletePrepared = false;
-        }
-
-        private void ReloadKey_Activated(object sender, EventArgs e)
-        {
-            ScreenNotification.ShowNotification("Rebuilding the UI", ScreenNotification.NotificationType.Warning);
-            MainWindow?.Dispose();
-            CreateUI();
-            MainWindow?.ToggleWindow();
         }
 
         protected override async Task LoadAsync()
@@ -189,20 +151,41 @@ namespace Kenedia.Modules.ItemDestructor
 
             cornerIcon = new CornerIcon()
             {
-                Icon = TextureManager.getIcon(_Icons.Stop_White),
-                HoverIcon = TextureManager.getIcon(_Icons.Stop_Highlight),
-                BasicTooltipText = $"{Name}",
+                Icon = TextureManager.getIcon(_Icons.Delete),
+                HoverIcon = TextureManager.getIcon(_Icons.Delete_HoveredWhite),
+                BasicTooltipText = string.Format(Strings.common.Toggle, $"{Name}"),
                 Parent = GameService.Graphics.SpriteScreen,
                 Visible = ShowCornerIcon.Value,
             };
+            cornerIcon.Size = cornerIcon.Size.Scale(0.8);
+
+            LoadingSpinner = new LoadingSpinner()
+            {
+                Parent = GameService.Graphics.SpriteScreen,
+                Size = cornerIcon.Size,
+                Visible = false,
+                Location = new Point(cornerIcon.Location.X, cornerIcon.Location.Y + cornerIcon.Height + 5),
+        };
 
             CursorIcon = new CursorSpinner()
             {
                 Parent = GameService.Graphics.SpriteScreen,
                 Background = TextureManager.getBackground(_Backgrounds.Tooltip),
-                Size = new Point(240, 50),
                 Visible = false,
             };
+
+            string[] instructions = {
+                Strings.common.ClickItem,
+                Strings.common.ThrowItem
+            };
+            var Font = GameService.Content.DefaultFont14;
+            int width = 0;
+            foreach (string s in instructions)
+            {
+                width = Math.Max((int)Font.MeasureString(s).Width, width);
+            }
+
+            CursorIcon.Size = new Point(50 + width + 5, 50);
 
             DeleteIndicator = new DeleteIndicator()
             {
@@ -213,81 +196,74 @@ namespace Kenedia.Modules.ItemDestructor
                 ClipsBounds = false,
             };
 
-            cornerIcon.Click += CornerIcon_Click;
-            DataLoaded_Event += ItemDestructor_DataLoaded_Event;
+            cornerIcon.Click += ToggleModule;
+            cornerIcon.Moved += CornerIcon_Moved;
 
             // Base handler must be called
             base.OnModuleLoaded(e);
-
-            LoadData();
         }
 
-        private void ItemDestructor_DataLoaded_Event(object sender, EventArgs e)
+        private void CornerIcon_Moved(object sender, MovedEventArgs e)
         {
-            CreateUI();
-        }
-
-        private void CornerIcon_Click(object sender, Blish_HUD.Input.MouseEventArgs e)
-        {
-            if (MainWindow != null) MainWindow.ToggleWindow();
+            LoadingSpinner.Location = new Point(cornerIcon.Location.X, cornerIcon.Location.Y + cornerIcon.Height + 5);
         }
 
         protected override void Update(GameTime gameTime)
         {
             Ticks.global += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (Ticks.global > 25)
+            if (Ticks.global > 5)
             {
                 Ticks.global = 0;
+            }
 
-                if (GameIntegrationService.GameIntegration.Gw2Instance.Gw2HasFocus && ModuleActive && !DeleteRunning)
+            if (GameIntegrationService.GameIntegration.Gw2Instance.Gw2HasFocus && ModuleActive && !DeleteRunning)
+            {
+                var mouse = Mouse.GetState();
+                var keyboard = Keyboard.GetState();
+
+                var Clicked = MouseState == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released;
+                if (mouse.LeftButton == ButtonState.Pressed && MouseState == ButtonState.Released)
                 {
-                    var mouse = Mouse.GetState();
-                    var keyboard = Keyboard.GetState();
-
-                    var Clicked = MouseState == ButtonState.Pressed && mouse.LeftButton == ButtonState.Released;
-                    if (mouse.LeftButton == ButtonState.Pressed && MouseState == ButtonState.Released)
+                    if (ItemPos.Distance2D(mouse.Position) < 50)
                     {
-                        if (ItemPos.Distance2D(mouse.Position) < 50)
-                        {
-                            MousePos = MousePos == Point.Zero ? mouse.Position : MousePos;
-                        }
-                        else
-                        {
-                            DeletePrepared = false;
-                        }
+                        MousePos = MousePos == Point.Zero ? mouse.Position : MousePos;
                     }
-
-                    if (Clicked)
+                    else
                     {
-                        DeleteIndicator.Visible = false;
-
-                        if (keyboard.IsKeyDown(Keys.LeftShift))
-                        {
-                            ItemPos = mouse.Position;
-                            DeleteIndicator.Visible = true;
-                            Instruction = "Throw the marked item out!";
-                            Copy();
-                        }
-                        else if (DeletePrepared)
-                        {
-                            if (MousePos.Distance2D(mouse.Position) > 100)
-                            {
-                                Paste();
-                            }
-
-                            DeletePrepared = false;
-                            DeleteIndicator.Visible = false;
-                        }
-                        else
-                        {
-                            MousePos = Point.Zero;
-                            Instruction = "Shift + Click on an Item!";
-                        }
+                        DeletePrepared = false;
                     }
-
-                    MouseState = mouse.LeftButton;
                 }
+
+                if (Clicked)
+                {
+                    DeleteIndicator.Visible = false;
+
+                    if (keyboard.IsKeyDown(Keys.LeftShift))
+                    {
+                        ItemPos = mouse.Position;
+                        DeleteIndicator.Visible = true;
+                        Instruction = Strings.common.ThrowItem;
+                        Copy();
+                    }
+                    else if (DeletePrepared)
+                    {
+                        if (MousePos.Distance2D(mouse.Position) > 100)
+                        {
+                            Paste();
+                        }
+
+                        DeletePrepared = false;
+                        DeleteIndicator.Visible = false;
+                    }
+                    else
+                    {
+                        MousePos = Point.Zero;
+                        Instruction = Strings.common.ClickItem;
+                    }
+                }
+
+                MouseState = mouse.LeftButton;
             }
         }
 
@@ -344,70 +320,46 @@ namespace Kenedia.Modules.ItemDestructor
             MainWindow?.Dispose();
 
             CursorIcon?.Dispose();
+            DeleteIndicator?.Dispose();
 
+            LoadingSpinner?.Dispose();
+
+            cornerIcon.Click -= ToggleModule;
+            cornerIcon.Moved -= CornerIcon_Moved;
             cornerIcon?.Dispose();
-            cornerIcon.Click -= CornerIcon_Click;
+
+            ToggleModule_Key.Value.Activated -= ToggleModule;
 
             TextureManager?.Dispose();
             TextureManager = null;
 
-            ReloadKey.Value.Enabled = false;
-            ReloadKey.Value.Activated -= ReloadKey_Activated;
-
-            DataLoaded_Event -= ItemDestructor_DataLoaded_Event;
             OverlayService.Overlay.UserLocale.SettingChanged -= UserLocale_SettingChanged;
 
             DataLoaded = false;
             ModuleInstance = null;
         }
 
-        public static string getCultureString()
-        {
-            var culture = "en-EN";
-            switch (OverlayService.Overlay.UserLocale.Value)
-            {
-                case Gw2Sharp.WebApi.Locale.French:
-                    culture = "fr-FR";
-                    break;
-
-                case Gw2Sharp.WebApi.Locale.Spanish:
-                    culture = "es-ES";
-                    break;
-
-                case Gw2Sharp.WebApi.Locale.German:
-                    culture = "de-DE";
-                    break;
-
-                default:
-                    culture = "en-EN";
-                    break;
-            }
-            return culture;
-        }
-
-        public async Task Fetch_APIData(bool force = false)
-        {
-        }
-
-        async Task LoadData()
-        {
-            CultureString = ItemDestructor.getCultureString();
-            await Fetch_APIData();
-
-            OverlayService.Overlay.UserLocale.SettingChanged += UserLocale_SettingChanged;
-        }
-
         private async void UserLocale_SettingChanged(object sender, ValueChangedEventArgs<Gw2Sharp.WebApi.Locale> e)
         {
-            OverlayService.Overlay.UserLocale.SettingChanged -= UserLocale_SettingChanged;
-            await LoadData();
-
             OnLanguageChanged(null, null);
-        }
 
-        private void CreateUI()
-        {
-            //MainWindow.ToggleWindow();
+            Instruction = Strings.common.ClickItem;
+            cornerIcon.BasicTooltipText = string.Format(Strings.common.Toggle, $"{Name}");
+
+
+            string[] instructions = {
+                Strings.common.ClickItem,
+                Strings.common.ThrowItem
+            };
+
+            var Font = GameService.Content.DefaultFont14;
+            int width = 0;
+            foreach (string s in instructions)
+            {
+                width = Math.Max((int)Font.MeasureString(s).Width, width);
+            }
+
+            CursorIcon.Size = new Point(50 + width + 5, 50);
         }
     }
 }

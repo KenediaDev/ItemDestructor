@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Blish_HUD;
 using Blish_HUD.Controls;
 using Microsoft.Xna.Framework;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Color = Microsoft.Xna.Framework.Color;
 using Microsoft.Xna.Framework.Graphics;
-using Gw2Sharp.ChatLinks;
-using Microsoft.Xna.Framework.Input;
-using Blish_HUD.Input;
-using System.Text.RegularExpressions;
-using MonoGame.Extended.BitmapFonts;
-using Blish_HUD.Controls.Extern;
-using System.Threading;
-using Blish_HUD.Content;
+
 namespace Kenedia.Modules.ItemDestructor
 {
     public class CursorIcon : Control
@@ -41,14 +30,21 @@ namespace Kenedia.Modules.ItemDestructor
 
             }
         }
+
+        protected override void DisposeControl()
+        {
+            base.DisposeControl();
+            Texture?.Dispose();
+        }
     }
+
     public class CursorSpinner : Container
     {
         LoadingSpinner LoadingSpinner;
         public Texture2D Background;
         public CursorSpinner()
         {
-            ClipsBounds = false;
+            //ClipsBounds = false;
             LoadingSpinner = new LoadingSpinner()
             {
                 Size = new Point(40, 40),
@@ -62,7 +58,6 @@ namespace Kenedia.Modules.ItemDestructor
             base.UpdateContainer(gameTime);
 
             Location = Input.Mouse.Position.Add(new Point(15, 15));
-            Size = new Point(240, 50);
         }
 
         public override void PaintBeforeChildren(SpriteBatch spriteBatch, Rectangle bounds)
@@ -100,7 +95,7 @@ namespace Kenedia.Modules.ItemDestructor
                 var Font = GameService.Content.DefaultFont14;
 
                 spriteBatch.DrawStringOnCtrl(this,
-                                       "Item Destruction Assist",
+                                       $"{ItemDestructor.ModuleInstance.Name}",
                                        GameService.Content.DefaultFont14,
                                        new Rectangle(50, 5, bounds.Width - 55, bounds.Height - 10 - Font.LineHeight),
                                        Color.Orange,
@@ -120,6 +115,14 @@ namespace Kenedia.Modules.ItemDestructor
                                        );
             }
 
+        }
+
+        protected override void DisposeControl()
+        {
+            base.DisposeControl();
+
+            LoadingSpinner?.Dispose();
+            Background?.Dispose();
         }
     }
 
@@ -151,6 +154,12 @@ namespace Kenedia.Modules.ItemDestructor
         {
             base.OnShown(e);
             Location = Input.Mouse.Position.Add(new Point(5,5));
+        }
+
+        protected override void DisposeControl()
+        {
+            base.DisposeControl();
+            Texture?.Dispose();
         }
     }
 }

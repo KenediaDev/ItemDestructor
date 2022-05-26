@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
 using Point = Microsoft.Xna.Framework.Point;
 
 namespace Kenedia.Modules.ItemDestructor
@@ -17,6 +13,10 @@ namespace Kenedia.Modules.ItemDestructor
         public static Point Add(this Point b, Point p)
         {
             return new Point(b.X + p.X, b.Y + p.Y);
+        }
+        public static Point Scale(this Point p, double factor)
+        {
+            return new Point((int)(p.X * factor), (int)(p.Y * factor));
         }
     }
 

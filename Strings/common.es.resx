@@ -117,120 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Axe" xml:space="preserve">
-    <value>Hacha</value>
+  <data name="Activated" xml:space="preserve">
+    <value>activado</value>
   </data>
-  <data name="Build" xml:space="preserve">
-    <value>Perfil</value>
+  <data name="ClickItem" xml:space="preserve">
+    <value>Mayúsculas + clic en un objeto.</value>
   </data>
-  <data name="Concentration" xml:space="preserve">
-    <value>Concentración</value>
+  <data name="Deactivated" xml:space="preserve">
+    <value>desactivado</value>
   </data>
-  <data name="ConditionDamage" xml:space="preserve">
-    <value>Daño de condición</value>
+  <data name="RunStateChange" xml:space="preserve">
+    <value>{0} {1} !</value>
   </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copiar</value>
+  <data name="ShowCorner_Name" xml:space="preserve">
+    <value>Mostrar el icono de la esquina</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Crear</value>
+  <data name="ShowCorner_Tooltip" xml:space="preserve">
+    <value>Mostrar / Ocultar el icono de la esquina de {0}.</value>
   </data>
-  <data name="Dagger" xml:space="preserve">
-    <value>Daga</value>
+  <data name="ThrowItem" xml:space="preserve">
+    <value>Tira el objeto marcado.</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Borrar</value>
-  </data>
-  <data name="Expertise" xml:space="preserve">
-    <value>Pericia</value>
-  </data>
-  <data name="Ferocity" xml:space="preserve">
-    <value>Ferocidad</value>
-  </data>
-  <data name="Focus" xml:space="preserve">
-    <value>Enfoque</value>
-  </data>
-  <data name="Gear" xml:space="preserve">
-    <value>Engranaje</value>
-  </data>
-  <data name="GearTab_Tips" xml:space="preserve">
-    <value>Click izquierdo para seleccionar Stat/Upgrade
-Alt + Click Derecho para seleccionar Arma
-Clic derecho para copiar el nombre de la estadística/actualización</value>
-  </data>
-  <data name="Greatsword" xml:space="preserve">
-    <value>Greatsword</value>
-  </data>
-  <data name="Hammer" xml:space="preserve">
-    <value>Martillo</value>
-  </data>
-  <data name="HealingPower" xml:space="preserve">
-    <value>Poder de curación</value>
-  </data>
-  <data name="Longbow" xml:space="preserve">
-    <value>Arco largo</value>
-  </data>
-  <data name="Mace" xml:space="preserve">
-    <value>Mace</value>
-  </data>
-  <data name="Pistol" xml:space="preserve">
-    <value>Pistola</value>
-  </data>
-  <data name="Power" xml:space="preserve">
-    <value>Potencia</value>
-  </data>
-  <data name="Precision" xml:space="preserve">
-    <value>Precisión</value>
-  </data>
-  <data name="Rifle" xml:space="preserve">
-    <value>Rifle</value>
-  </data>
-  <data name="Scepter" xml:space="preserve">
-    <value>Sceptre</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Busque en</value>
-  </data>
-  <data name="Shield" xml:space="preserve">
-    <value>Escudo</value>
-  </data>
-  <data name="Shortbow" xml:space="preserve">
-    <value>Arco corto</value>
-  </data>
-  <data name="Spear" xml:space="preserve">
-    <value>Lanza</value>
-  </data>
-  <data name="Speargun" xml:space="preserve">
-    <value>Honda de lanzas</value>
-  </data>
-  <data name="Staff" xml:space="preserve">
-    <value>Vara</value>
-  </data>
-  <data name="Sword" xml:space="preserve">
-    <value>Espada</value>
-  </data>
-  <data name="Template" xml:space="preserve">
-    <value>Plantilla</value>
-  </data>
-  <data name="TemplateCode" xml:space="preserve">
-    <value>Código de plantilla</value>
-  </data>
-  <data name="Torch" xml:space="preserve">
-    <value>Antorcha</value>
-  </data>
-  <data name="Toughness" xml:space="preserve">
-    <value>Dureza</value>
-  </data>
-  <data name="Trident" xml:space="preserve">
-    <value>Trident</value>
-  </data>
-  <data name="Unkown" xml:space="preserve">
-    <value>Desconocido</value>
-  </data>
-  <data name="Vitality" xml:space="preserve">
-    <value>Vitalidad</value>
-  </data>
-  <data name="Warhorn" xml:space="preserve">
-    <value>Cuerno de guerra</value>
+  <data name="Toggle" xml:space="preserve">
+    <value>{0} de alternancia</value>
   </data>
 </root>

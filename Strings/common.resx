@@ -117,120 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Axe" xml:space="preserve">
-    <value>Axe</value>
+  <data name="Activated" xml:space="preserve">
+    <value>activated</value>
   </data>
-  <data name="Build" xml:space="preserve">
-    <value>Build</value>
+  <data name="ClickItem" xml:space="preserve">
+    <value>Shift + Click on an Item!</value>
   </data>
-  <data name="Concentration" xml:space="preserve">
-    <value>Concentration</value>
+  <data name="Deactivated" xml:space="preserve">
+    <value>deactivated</value>
   </data>
-  <data name="ConditionDamage" xml:space="preserve">
-    <value>Condition Damage</value>
+  <data name="RunStateChange" xml:space="preserve">
+    <value>{0} {1} !</value>
   </data>
-  <data name="Copy" xml:space="preserve">
-    <value>Copy</value>
+  <data name="ShowCorner_Name" xml:space="preserve">
+    <value>Show Corner Icon</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>Create</value>
+  <data name="ShowCorner_Tooltip" xml:space="preserve">
+    <value>Show / Hide the Corner Icon of {0}.</value>
   </data>
-  <data name="Dagger" xml:space="preserve">
-    <value>Dagger</value>
+  <data name="ThrowItem" xml:space="preserve">
+    <value>Throw the marked item out!</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="Expertise" xml:space="preserve">
-    <value>Expertise</value>
-  </data>
-  <data name="Ferocity" xml:space="preserve">
-    <value>Ferocity</value>
-  </data>
-  <data name="Focus" xml:space="preserve">
-    <value>Focus</value>
-  </data>
-  <data name="Gear" xml:space="preserve">
-    <value>Gear</value>
-  </data>
-  <data name="GearTab_Tips" xml:space="preserve">
-    <value>Left Click to select Stat/Upgrade
-Alt + Right Click to select Weapon
-Right Click to copy Stat/Upgrade Name</value>
-  </data>
-  <data name="Greatsword" xml:space="preserve">
-    <value>Greatsword</value>
-  </data>
-  <data name="Hammer" xml:space="preserve">
-    <value>Hammer</value>
-  </data>
-  <data name="HealingPower" xml:space="preserve">
-    <value>Healing Power</value>
-  </data>
-  <data name="Longbow" xml:space="preserve">
-    <value>Longbow</value>
-  </data>
-  <data name="Mace" xml:space="preserve">
-    <value>Mace</value>
-  </data>
-  <data name="Pistol" xml:space="preserve">
-    <value>Pistol</value>
-  </data>
-  <data name="Power" xml:space="preserve">
-    <value>Power</value>
-  </data>
-  <data name="Precision" xml:space="preserve">
-    <value>Precision</value>
-  </data>
-  <data name="Rifle" xml:space="preserve">
-    <value>Rifle</value>
-  </data>
-  <data name="Scepter" xml:space="preserve">
-    <value>Scepter</value>
-  </data>
-  <data name="Search" xml:space="preserve">
-    <value>Search</value>
-  </data>
-  <data name="Shield" xml:space="preserve">
-    <value>Shield</value>
-  </data>
-  <data name="Shortbow" xml:space="preserve">
-    <value>Shortbow</value>
-  </data>
-  <data name="Spear" xml:space="preserve">
-    <value>Spear</value>
-  </data>
-  <data name="Speargun" xml:space="preserve">
-    <value>Speargun</value>
-  </data>
-  <data name="Staff" xml:space="preserve">
-    <value>Staff</value>
-  </data>
-  <data name="Sword" xml:space="preserve">
-    <value>Sword</value>
-  </data>
-  <data name="Template" xml:space="preserve">
-    <value>Template</value>
-  </data>
-  <data name="TemplateCode" xml:space="preserve">
-    <value>Template Code</value>
-  </data>
-  <data name="Torch" xml:space="preserve">
-    <value>Torch</value>
-  </data>
-  <data name="Toughness" xml:space="preserve">
-    <value>Toughness</value>
-  </data>
-  <data name="Trident" xml:space="preserve">
-    <value>Trident</value>
-  </data>
-  <data name="Unkown" xml:space="preserve">
-    <value>Unkown</value>
-  </data>
-  <data name="Vitality" xml:space="preserve">
-    <value>Vitality</value>
-  </data>
-  <data name="Warhorn" xml:space="preserve">
-    <value>Warhorn</value>
+  <data name="Toggle" xml:space="preserve">
+    <value>Toggle {0}</value>
   </data>
 </root>

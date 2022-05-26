@@ -1,93 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using Newtonsoft.Json;
 using Microsoft.Xna.Framework.Graphics;
-using Blish_HUD;
-using Blish_HUD.Controls;
-using Microsoft.Xna.Framework;
-using Rectangle = Microsoft.Xna.Framework.Rectangle;
-using Color = Microsoft.Xna.Framework.Color;
-using Gw2Sharp.ChatLinks;
+
 namespace Kenedia.Modules.ItemDestructor
 {
     public enum _Controls
     {
-        GlidingBar,
-        GlidingFill,
-        GlidingFill_Gray,
-        TabActive,
-        SpecHighlight,
-        Line,
-        Land,
-        Water,
-        EliteFrame,
-        PlaceHolder_Traitline,
-        SpecFrame,
-        SpecSideSelector,
-        SpecSideSelector_Hovered,
-        SkillSelector,
-        SkillSelector_Hovered,
-        NoWaterTexture,
-        TabBorderLeft,
-        TabBorderRight,
-        TabBar_FadeIn,
-        TabBar_Line,
-        Selector,
-        AddButton,
-        ResetButton,
-        ResetButton_Hovered,
-        Template_Border,
-        Delete,
+        Delete = 25,
         Delete_Hovered,
-        Clear,
-        Add,
-        Add_Hovered,
-        Copy,
-        Copy_Hovered,
-        Import,
-        Import_Hovered,
     }
     public enum _Icons
     {
         Bug,
-        Refresh,
-        Template,
-        Template_White,
-        Helmet,
-        Helmet_White,
-        Cog,
-        Cog_White,
-        Undo,
-        Undo_White,
-        Checkmark_White,
-        Checkmark_Color,
-        Checkmark_Highlight,
-        Stop_White,
-        Stop_Color,
-        Stop_Highlight,
-        Search,
-        Search_Highlight,
-        Edit_Feather,
-        Edit_Feather_Highlight,
-        Edit_Feather_Pressed,
-        Mouse,
-        Lock_Locked,
-        SingleSpinner,
-    }
-    public enum _Emblems
-    {
-        SwordAndShield,
-        QuestionMark,
+        Delete,
+        Delete_Hovered,
+        Delete_HoveredWhite,
     }
     public enum _Backgrounds
     {
-        MainWindow,
-        BlueishMainWindow,
-        Tooltip,
+        Tooltip = 2,
     }
 
     public class TextureManager : IDisposable
@@ -132,14 +64,6 @@ namespace Kenedia.Modules.ItemDestructor
                 _Icons.Insert((int)num, texture);
             }
 
-            values = Enum.GetValues(typeof(_Emblems));
-            _Emblems = new List<Texture2D>(new Texture2D[values.Cast<int>().Max() + 1]);
-            foreach (_Emblems num in values)
-            {
-                var texture = ContentsManager.GetTexture(@"textures\emblems\" + (int)num + ".png");
-                _Emblems.Insert((int)num, texture);
-            }
-
             values = Enum.GetValues(typeof(_Controls));
             _Controls = new List<Texture2D>(new Texture2D[values.Cast<int>().Max() + 1]);
             foreach (_Controls num in values)
@@ -147,7 +71,6 @@ namespace Kenedia.Modules.ItemDestructor
                 var texture = ContentsManager.GetTexture(@"textures\controls\" + (int)num + ".png");
                 _Controls.Insert((int)num, texture);
             }
-
         }
 
         public Texture2D getBackground(_Backgrounds background)
@@ -163,13 +86,6 @@ namespace Kenedia.Modules.ItemDestructor
             var index = (int)icon;
 
             if (index < _Icons.Count && _Icons[index] != null) return _Icons[index];
-            return _Icons[0];
-        }
-
-        public Texture2D getEmblem(_Emblems emblem)
-        {
-            var index = (int)emblem;
-            if (index < _Emblems.Count && _Emblems[index] != null) return _Emblems[index];
             return _Icons[0];
         }
 
